@@ -1,0 +1,141 @@
+﻿@model EmulatorsRequester.Models.AddSensor
+
+@{
+    ViewData["Title"] = "Add Sensors";
+}
+@section scripts
+{
+    <script type="text/javascript">
+        $('input[type=text][name=BearToken]').tooltip({
+            placement: "right",
+            trigger: "focus"
+        });
+        $('input[type=number][name=SensorCount]').tooltip({
+            placement: "right",
+            trigger: "focus"
+        });
+    </script>
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="Add Sensors" content="width=device-width" />
+    <title>Add Sensors</title>
+</head>
+
+<body>
+        
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @using (Html.BeginForm("AddSensors", "Scoville", FormMethod.Post))
+    {
+        <table cellpadding="0" cellspacing="0" class="table table-hover">
+            <tr>
+                <th colspan="2" align="center" class="table-success">/envirovue/start</th>
+            </tr>
+            <tr>
+                <td>Tenant ID:</td>
+                <td>
+                    @Html.DropDownListFor(m => m.TenantId, new List<SelectListItem>
+                        { new SelectListItem{Text="cdc", Value="cdc"},
+                          new SelectListItem{Text="sean", Value="sean"}})
+                        
+                </td>
+            </tr>
+            <tr>
+                <td>Auth ID:</td>
+                <td>
+                    @Html.DropDownListFor(m => m.AuthId, new List<SelectListItem>
+                        { new SelectListItem{Text="158befbb-591a-4a39-868f-52326bf3e921", Value="158befbb-591a-4a39-868f-52326bf3e921"},
+                          new SelectListItem{Text="598ed4e6-bde8-418d-aa04-7cb65239ac75", Value="598ed4e6-bde8-418d-aa04-7cb65239ac75"}})
+                </td>
+            </tr>
+            <tr>
+                <td>BearToken:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.BearToken, 
+                        new Dictionary<string, object>
+                        {
+                            {"data-toggle", "tooltip"},
+                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.BearToken)}
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td>BridgePrefix:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.BridgePrefix, 
+                        new Dictionary<string, object>
+                        {
+                            {"data-toggle", "tooltip"},
+                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.BridgePrefix)}
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td>SensorPrefix:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.SensorPrefix, 
+                        new Dictionary<string, object>
+                        {
+                            {"data-toggle", "tooltip"},
+                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.SensorPrefix)}
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td>SensorCount:</td>
+                <td>
+                    @Html.EditorFor(m => m.SensorCount, 
+                        new Dictionary<string, object>
+                        {
+                            {"data-toggle", "tooltip"},
+                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.SensorCount)}
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td>MobilePrefix:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.MobilePrefix, 
+                        new Dictionary<string, object>
+                        {
+                            {"data-toggle", "tooltip"},
+                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.MobilePrefix)}
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Add Sensors" class="btn btn-primary"/></td>
+                <td></td>
+            </tr>
+
+        </table>
+    }
+    <table class="table table-bordered">  
+        <tr>
+            <td class="table-success">
+            @Html.DisplayNameFor(model => model.ResponseStatus)
+            </td>
+        </tr>  
+        <tr>
+            <td>
+            @Html.DisplayFor(model => model.ResponseStatus)
+            </td>
+        </tr>  
+        <tr>
+            <td class="table-success">
+            @Html.DisplayNameFor(model => model.JsonResponse)
+            </td>
+        </tr>  
+        <tr>
+            <td>
+            @Html.DisplayFor(model => model.JsonResponse)
+            </td>
+        </tr>  
+    </table>  
+</body>
+</html>

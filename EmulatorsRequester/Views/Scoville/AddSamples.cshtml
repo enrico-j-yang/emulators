@@ -1,0 +1,135 @@
+﻿@model EmulatorsRequester.Models.AddSample
+
+@{
+    ViewData["Title"] = "Add Samples";
+}
+@section scripts
+{
+    <script type="text/javascript">
+        $('input[type=text][name=MacAddress]').tooltip({
+            placement: "right",
+            trigger: "focus"
+        });
+        $('textarea[name=Sample]').tooltip({
+            placement: "right",
+            trigger: "focus"
+        });
+    </script>
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="Add Samples" content="width=device-width" />
+    <title>Add Samples</title>
+</head>
+
+<body>
+        
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @using (Html.BeginForm("AddSamples", "Scoville", FormMethod.Post))
+    {
+        <table cellpadding="0" cellspacing="0" class="table table-hover">
+            <tr>
+                <th colspan="2" align="center" class="table-success">/envirovue/samples</th>
+            </tr>
+            <tr>
+                <td>MacAddress:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.MacAddress, 
+                        new Dictionary<string, object>
+                        {
+                            {"data-toggle", "tooltip"},
+                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.MacAddress)}
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td>Samples:</td>
+                <td>
+                    <table>
+                        <tr>
+                            <th>@Html.CheckBoxFor(m => m.IsRandom)Random generate samples?</th>
+                        </tr>
+                        <tr>
+                            <td>RandomRangeLow:</td>
+                            <td class="editor">                                
+                                @Html.EditorFor(m => m.RandomRangeLow, 
+                                new Dictionary<string, object>
+                                {
+                                    {"data-toggle", "tooltip"},
+                                    {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.RandomRangeLow)}
+                                })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>RandomRangeHigh:</td>
+                            <td class="editor">
+                                @Html.EditorFor(m => m.RandomRangeHigh, 
+                                new Dictionary<string, object>
+                                {
+                                    {"data-toggle", "tooltip"},
+                                    {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.RandomRangeHigh)}
+                                })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>RandomAmount:</td>
+                            <td class="editor">    
+                                @Html.EditorFor(m => m.RandomAmount, 
+                                new Dictionary<string, object>
+                                {
+                                    {"data-toggle", "tooltip"},
+                                    {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.RandomAmount)}
+                                })
+                            </td>
+                        </tr>
+                    </table>
+                    @Html.TextAreaFor(m => m.Sample, 
+                        new Dictionary<string, object>
+                        {
+                            {"data-toggle", "tooltip"},
+                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.Sample)}
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Add Samples" class="btn btn-primary"/></td>
+                <td></td>
+            </tr>
+
+        </table>
+    }
+    <table class="table table-bordered">  
+        <tr>
+            <td class="table-success">
+            @Html.DisplayNameFor(model => model.ResponseStatus)
+            </td>
+        </tr>  
+        <tr>
+            <td>
+            @Html.DisplayFor(model => model.ResponseStatus)
+            </td>
+        </tr>  
+        <tr>
+            <td class="table-success">
+            @Html.DisplayNameFor(model => model.JsonResponse)
+            </td>
+        </tr>  
+        <tr>
+            <td>
+            @Html.DisplayFor(model => model.JsonResponse)
+            </td>
+        </tr>  
+    </table>  
+</body>
+
+<style>
+    .editor input {
+        width: 80px;
+    }
+</style>
+</html>

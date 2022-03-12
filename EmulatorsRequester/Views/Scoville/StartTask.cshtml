@@ -1,0 +1,87 @@
+﻿@model EmulatorsRequester.Models.StartTaskModel
+
+@{
+    ViewData["Title"] = "Start Task";
+}
+@section scripts
+{
+    <script type="text/javascript">
+        $('input[type=text][name=MacAddress]').tooltip({
+            placement: "right",
+            trigger: "focus"
+        });
+    </script>
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="Start Task" content="width=device-width" />
+    <title>Start Task</title>
+</head>
+
+<body>
+        
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @using (Html.BeginForm("StartTask", "Scoville", FormMethod.Post))
+    {
+        <table cellpadding="0" cellspacing="0" class="table table-hover">
+            <tr>
+                <th colspan="2" align="center" class="table-success">/envirovue/stop</th>
+            </tr>
+            <tr>
+                <td>MacAddress:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.MacAddress, 
+                        new Dictionary<string, object>
+                        {
+                            {"data-toggle", "tooltip"},
+                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.MacAddress)}
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td>DateTime:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.DateTime, 
+                        new Dictionary<string, object>
+                        {
+                            {"data-toggle", "tooltip"},
+                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.DateTime)}
+                        })
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Start Task" class="btn btn-primary"/></td>
+                <td></td>
+            </tr>
+
+        </table>
+    }
+    <table class="table table-bordered">  
+        <tr>
+            <td class="table-success">
+            @Html.DisplayNameFor(model => model.ResponseStatus)
+            </td>
+        </tr>  
+        <tr>
+            <td>
+            @Html.DisplayFor(model => model.ResponseStatus)
+            </td>
+        </tr>  
+        <tr>
+            <td class="table-success">
+            @Html.DisplayNameFor(model => model.JsonResponse)
+            </td>
+        </tr>  
+        <tr>
+            <td>
+            @Html.DisplayFor(model => model.JsonResponse)
+            </td>
+        </tr>  
+    </table> 
+</body>
+</html>

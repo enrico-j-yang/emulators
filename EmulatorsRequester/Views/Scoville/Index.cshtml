@@ -1,0 +1,39 @@
+﻿@model EmulatorsRequester.Models.Logs
+
+@{
+    ViewData["Title"] = "Scoville Emulator Requester";
+}
+
+<h2>Scoville Emulator Requester</h2>
+<div class="row">
+    <div class="col-3">
+        <ul class="nav flex-column">    
+          <li class="nav-item">
+            <a class="nav-link" asp-controller="Scoville" asp-action="AddSensors">Add Sensors</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" asp-controller="Scoville" asp-action="AddSamples">Add Samples</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" asp-controller="Scoville" asp-action="SetBattery">Set Battery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" asp-controller="Scoville" asp-action="GetBridgeLogs">Get Bridge Logs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" asp-controller="Scoville" asp-action="StopSensors">Stop Sensors</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" asp-controller="Scoville" asp-action="StartTask">Start Task</a>
+          </li>
+        </ul>
+    </div>
+    <!--<div class="col">
+        @using (Html.BeginForm("Index", "Scoville", FormMethod.Post))
+        {
+            <input type="submit" name="restart" value="Restart Emulator" class="btn btn-primary"/>
+        }
+
+        @Html.DisplayFor(m => m.EmulatorLogs)
+    </div>-->
+</div>
