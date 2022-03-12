@@ -4,7 +4,6 @@ using System.Text;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using EmulatorsRequester.Util;
-using EmulatorsRequester.Emulators;
 
 namespace EmulatorsRequester.Controllers
 {
