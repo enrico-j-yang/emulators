@@ -4,7 +4,6 @@ using System.Text;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using EmulatorsRequester.Util;
-using EmulatorsRequester.Emulators;
 
 namespace EmulatorsRequester.Controllers
 {
@@ -13,16 +12,12 @@ namespace EmulatorsRequester.Controllers
 
         public IActionResult Index(Logs logs)
         {
-            //logs.EmulatorLogs = ScovilleEmulator.GetInstance().ReadOutput();
             return View(logs);
         }
 
         [HttpPost]
         public IActionResult Index(Logs logs, string restart)
         {
-            //ScovilleEmulator scovilleEmulator = ScovilleEmulator.GetInstance();
-            //scovilleEmulator.Restart();
-            //logs.EmulatorLogs = ScovilleEmulator.GetInstance().ReadOutput();
             return View(logs);
         }
 
