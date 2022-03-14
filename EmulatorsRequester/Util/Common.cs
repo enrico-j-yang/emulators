@@ -140,13 +140,13 @@ namespace EmulatorsRequester.Util
 
         public static string LocalhostString()
         {
-            if (Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true")
+            using (StreamReader reader = new StreamReader("ip.properties"))
             {
-                return "host.docker.internal";
-            }
-            else
-            {
-                return "localhost";
+                string line;
+                line = reader.ReadLine();
+                
+                string[] lineValues = line.Split('=');
+                return lineValues[1];               
             }
         }
     }
