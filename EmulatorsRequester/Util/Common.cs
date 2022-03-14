@@ -1,7 +1,5 @@
 ﻿using EmulatorsRequester.Models;
 using System.Text;
-using System.Net;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
 namespace EmulatorsRequester.Util

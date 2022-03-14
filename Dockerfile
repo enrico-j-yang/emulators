@@ -18,5 +18,4 @@ COPY --from=build /app ./
 #COPY EmulatorsRequester/Emulators/ ./Emulators/
 #RUN apt update && apt install openjdk-11-jre -y
 COPY ip.properties ./
-ENV DOTNET_RUNNING_IN_CONTAINER=true
 ENTRYPOINT ["dotnet", "EmulatorsRequester.dll"]
