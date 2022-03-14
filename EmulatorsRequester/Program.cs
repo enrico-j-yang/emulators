@@ -1,4 +1,4 @@
-
+using EmulatorsRequester.Emulators;
 
 var builder = WebApplication.CreateBuilder(args);
 

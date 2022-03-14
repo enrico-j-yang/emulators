@@ -15,5 +15,7 @@ RUN dotnet publish -c release -o /app --no-restore
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build /app ./
+#COPY EmulatorsRequester/Emulators/ ./Emulators/
+#RUN apt update && apt install openjdk-11-jre -y
 ENV DOTNET_RUNNING_IN_CONTAINER=true
 ENTRYPOINT ["dotnet", "EmulatorsRequester.dll"]

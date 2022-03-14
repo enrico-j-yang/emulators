@@ -4,6 +4,7 @@ using System.Text;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using EmulatorsRequester.Util;
+using EmulatorsRequester.Emulators;
 
 namespace EmulatorsRequester.Controllers
 {
@@ -33,7 +34,7 @@ namespace EmulatorsRequester.Controllers
         [HttpPost]
         public async Task<IActionResult> AddSensors(AddSensor sensors)
         {
-            string url = "http://" + Common.LocalhostString() + ":8090/envirovue/start";
+            string url = "http://"+Common.LocalhostString()+":8090/envirovue/start";
             var client = new HttpClient();
             string body = @"{
                 ""envirovue"": {
@@ -105,7 +106,7 @@ namespace EmulatorsRequester.Controllers
                 }
                 samples.Sample = sampleString.Substring(0, sampleString.Length - 1);
             }
-            string url = "http://" + Common.LocalhostString() + ":8090/envirovue/samples";
+            string url = "http://"+Common.LocalhostString()+":8090/envirovue/samples";
             var client = new HttpClient();
             string body = @"{
                 ""macAddress"": """ + samples.MacAddress + @""",
@@ -134,7 +135,7 @@ namespace EmulatorsRequester.Controllers
         [HttpPost]
         public async Task<IActionResult> SetBattery(Battery battery)
         {
-            string url = "http://" + Common.LocalhostString() + ":8090/envirovue/battery";
+            string url = "http://"+Common.LocalhostString()+":8090/envirovue/battery";
             var client = new HttpClient();
             string body = @"{
                 ""macAddress"": """ + battery.MacAddress + @""",
@@ -162,7 +163,7 @@ namespace EmulatorsRequester.Controllers
         [HttpPost]
         public async Task<IActionResult> GetBridgeLogs(BridgeLogs bridgeLogs)
         {
-            string url = "http://" + Common.LocalhostString() + ":8090/envirovue/bridge/logs";
+            string url = "http://"+Common.LocalhostString()+":8090/envirovue/bridge/logs";
             var client = new HttpClient();
 
             url = url + "?id=" + bridgeLogs.Id + "&count=" + bridgeLogs.Count + "&offset=" + bridgeLogs.Offset;
@@ -244,7 +245,7 @@ namespace EmulatorsRequester.Controllers
         [HttpPost]
         public async Task<IActionResult> StopSensors(StopSensor sensors)
         {
-            string url = "http://" + Common.LocalhostString() + ":8090/envirovue/stop";
+            string url = "http://"+Common.LocalhostString()+":8090/envirovue/stop";
             var client = new HttpClient();
             string body = "{}";
             url = url + "?id=" + sensors.Id;
@@ -271,7 +272,7 @@ namespace EmulatorsRequester.Controllers
         [HttpPost]
         public async Task<IActionResult> StartTask(StartTaskModel starttask)
         {
-            string url = "http://" + Common.LocalhostString() + ":8090/envirovue/start/task";
+            string url = "http://"+Common.LocalhostString()+":8090/envirovue/start/task";
             var client = new HttpClient();
             string body = @"{
                 ""macAddress"": """ + starttask.MacAddress + @""",
