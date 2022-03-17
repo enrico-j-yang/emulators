@@ -138,6 +138,15 @@ namespace EmulatorsRequester.Util
 
         public static string LocalhostString()
         {
+            if (Environment.GetEnvironmentVariable("DOTNET_RUN_IN_DOCKER")=="true")
+            {
+                return "host.docker.internal";
+            }
+            else
+            {
+                return "localhost";
+            }
+            /*
             using (StreamReader reader = new StreamReader("ip.properties"))
             {
                 string line;
@@ -146,6 +155,7 @@ namespace EmulatorsRequester.Util
                 string[] lineValues = line.Split('=');
                 return lineValues[1];               
             }
+            */
         }
     }
 }
