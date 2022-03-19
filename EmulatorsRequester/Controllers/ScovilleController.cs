@@ -31,6 +31,31 @@ namespace EmulatorsRequester.Controllers
         {
             string url = "http://"+Common.LocalhostString()+":8090/envirovue/start";
             var client = new HttpClient();
+            string bridgeBody = "";
+            if (!sensors.BridgePrefix.Equals(""))
+            {
+                bridgeBody = @",
+                    ""bridges"": {
+                    ""url"": ""https://zb-device.zpc-dev.zebra.com:443/weblink/bridge/"",
+                        ""count"": 1,
+                        ""personality"": {
+                        ""model"": ""ZB200"",
+                        ""weblink-protocol"": ""v4.weblink.zebra.com""
+                        },
+                        ""prefix"": """ + sensors.BridgePrefix + @""",
+                        ""min-start-delay"": 0,
+                        ""max-start-delay"": 1
+                    }";
+            }
+            string mobileBody = "";
+            if (!sensors.MobilePrefix.Equals(""))
+            {
+                mobileBody = @",
+                    ""mobile"": {
+                    ""id_prefix"": """ + sensors.MobilePrefix + @""",
+                        ""count"": 1
+                    }";    
+            }
             string body = @"{
                 ""envirovue"": {
                     ""enabled"": true,
@@ -47,25 +72,10 @@ namespace EmulatorsRequester.Controllers
                         ""port"": 443,
                         ""plaintext"": false
                     },
-                    ""bridges"": {
-                    ""url"": ""https://zb-device.zpc-dev.zebra.com:443/weblink/bridge/"",
-                        ""count"": 1,
-                        ""personality"": {
-                        ""model"": ""ZB200"",
-                        ""weblink-protocol"": ""v4.weblink.zebra.com""
-                        },
-                        ""prefix"": """ + sensors.BridgePrefix + @""",
-                        ""min-start-delay"": 0,
-                        ""max-start-delay"": 1
-                    },
                     ""sensors"": {
                     ""mac_prefix"": """ + sensors.SensorPrefix + @""",
                         ""count"": " + sensors.SensorCount + @" 
-                    },
-                    ""mobile"": {
-                    ""id_prefix"": """ + sensors.MobilePrefix + @""",
-                        ""count"": 1
-                    }
+                    }" + bridgeBody + mobileBody + @"
                 }
             }";
             var httpResponseMessage = await client.PostAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
@@ -88,9 +98,9 @@ namespace EmulatorsRequester.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddSamples(AddSample samples)
+        public async Task<IActionResult> AddSamples(AddSample samples, string GenerateSamples, string AddSamples)
         {
-            if (samples.IsRandom)
+            if (!string.IsNullOrEmpty(GenerateSamples))
             {
                 Random rnd = new Random();
                 string sampleString = "";
@@ -100,24 +110,29 @@ namespace EmulatorsRequester.Controllers
                     sampleString = string.Format("{0}\n{1},", sampleString, num);
                 }
                 samples.Sample = sampleString.Substring(0, sampleString.Length - 1);
+                return View(samples);
             }
-            string url = "http://"+Common.LocalhostString()+":8090/envirovue/samples";
-            var client = new HttpClient();
-            string body = @"{
-                ""macAddress"": """ + samples.MacAddress + @""",
-                ""samples"": [" + samples.Sample + @"
-                ]
-            }";
-            var httpResponseMessage = await client.PutAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
-            if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
+            if (!string.IsNullOrEmpty(AddSamples))
             {
-                samples.ResponseStatus = ((int)httpResponseMessage.StatusCode).ToString();
-                samples.JsonResponse = await httpResponseMessage.Content.ReadAsStringAsync();
-            }
-            else
-            {
-                samples.ResponseStatus = ((int)httpResponseMessage.StatusCode).ToString();
-                samples.JsonResponse = await httpResponseMessage.Content.ReadAsStringAsync();
+                string url = "http://"+Common.LocalhostString()+":8090/envirovue/samples";
+                var client = new HttpClient();
+                string body = @"{
+                    ""macAddress"": """ + samples.MacAddress + @""",
+                    ""samples"": [" + samples.Sample + @"
+                    ]
+                }";
+                var httpResponseMessage = await client.PutAsync(url, new StringContent(body, Encoding.UTF8, "application/json"));
+                if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
+                {
+                    samples.ResponseStatus = ((int)httpResponseMessage.StatusCode).ToString();
+                    samples.JsonResponse = await httpResponseMessage.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    samples.ResponseStatus = ((int)httpResponseMessage.StatusCode).ToString();
+                    samples.JsonResponse = await httpResponseMessage.Content.ReadAsStringAsync();
+                }
+                return View(samples);
             }
             return View(samples);
         }

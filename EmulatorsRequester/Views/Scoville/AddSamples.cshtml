@@ -50,54 +50,67 @@
             <tr>
                 <td>Samples:</td>
                 <td>
-                    <table>
-                        <tr>
-                            <th>@Html.CheckBoxFor(m => m.IsRandom)Random generate samples?</th>
-                        </tr>
-                        <tr>
-                            <td>RandomRangeLow:</td>
-                            <td class="editor">                                
-                                @Html.EditorFor(m => m.RandomRangeLow, 
+                    <div class="row">
+                        <div class="col">
+                            <table>
+                                <tr>
+                                    <td>RandomRangeLow:</td>
+                                    <td class="editor">                                
+                                        @Html.EditorFor(m => m.RandomRangeLow, 
+                                        new Dictionary<string, object>
+                                        {
+                                            {"data-toggle", "tooltip"},
+                                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.RandomRangeLow)}
+                                        })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>RandomRangeHigh:</td>
+                                    <td class="editor">
+                                        @Html.EditorFor(m => m.RandomRangeHigh, 
+                                        new Dictionary<string, object>
+                                        {
+                                            {"data-toggle", "tooltip"},
+                                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.RandomRangeHigh)}
+                                        })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>RandomAmount:</td>
+                                    <td class="editor">    
+                                        @Html.EditorFor(m => m.RandomAmount, 
+                                        new Dictionary<string, object>
+                                        {
+                                            {"data-toggle", "tooltip"},
+                                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.RandomAmount)}
+                                        })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="submit" name="GenerateSamples" value="Generate Samples" class="btn btn-primary"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(model => model.Sample)    
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col">
+                            @Html.TextAreaFor(m => m.Sample, 
                                 new Dictionary<string, object>
                                 {
                                     {"data-toggle", "tooltip"},
-                                    {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.RandomRangeLow)}
+                                    {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.Sample)}
                                 })
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>RandomRangeHigh:</td>
-                            <td class="editor">
-                                @Html.EditorFor(m => m.RandomRangeHigh, 
-                                new Dictionary<string, object>
-                                {
-                                    {"data-toggle", "tooltip"},
-                                    {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.RandomRangeHigh)}
-                                })
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>RandomAmount:</td>
-                            <td class="editor">    
-                                @Html.EditorFor(m => m.RandomAmount, 
-                                new Dictionary<string, object>
-                                {
-                                    {"data-toggle", "tooltip"},
-                                    {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.RandomAmount)}
-                                })
-                            </td>
-                        </tr>
-                    </table>
-                    @Html.TextAreaFor(m => m.Sample, 
-                        new Dictionary<string, object>
-                        {
-                            {"data-toggle", "tooltip"},
-                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.Sample)}
-                        })
+                        </div>
+                    </div>
                 </td>
             </tr>
             <tr>
-                <td><input type="submit" value="Add Samples" class="btn btn-primary"/></td>
+                <td><input type="submit" name="AddSamples" value="Add Samples" class="btn btn-primary"/></td>
                 <td></td>
             </tr>
 
