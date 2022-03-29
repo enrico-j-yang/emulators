@@ -50,12 +50,7 @@
             <tr>
                 <td>BatteryLevel:</td>
                 <td>
-                    @Html.EditorFor(m => m.BatteryLevel, 
-                        new Dictionary<string, object>
-                        {
-                            {"data-toggle", "tooltip"},
-                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.BatteryLevel)}
-                        })
+                    @Html.EditorFor(m => m.BatteryLevel, new { htmlAttributes = new { @min = "0", @max = "100" } })
                 </td>
             </tr>
             <tr>

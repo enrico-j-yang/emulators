@@ -7,10 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
+    <PackageReference Include="Npgsql" Version="6.0.3" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.3" />
   </ItemGroup>
   
 	<PropertyGroup>
 	  <DisablePackageAssetsCache>true</DisablePackageAssetsCache>
+	  <UserSecretsId>4d7ae7c6-0e11-4be8-a443-542d4a26f1ea</UserSecretsId>
 	</PropertyGroup>
 </Project>

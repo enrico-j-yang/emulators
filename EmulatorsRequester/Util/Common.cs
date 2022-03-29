@@ -1,5 +1,7 @@
 ﻿using EmulatorsRequester.Models;
 using System.Text;
+using System.Net;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
 namespace EmulatorsRequester.Util
@@ -135,10 +137,9 @@ namespace EmulatorsRequester.Util
             string temperatureCharacteristicString = JsonConvert.SerializeObject(temperatureCharacteristic);
             return temperatureCharacteristicString;
         }
-
         public static string LocalhostString()
         {
-            if (Environment.GetEnvironmentVariable("DOTNET_RUN_IN_DOCKER")=="true")
+            if (Environment.GetEnvironmentVariable("DOTNET_RUN_IN_DOCKER") =="true")
             {
                 return "host.docker.internal";
             }
@@ -146,16 +147,6 @@ namespace EmulatorsRequester.Util
             {
                 return "localhost";
             }
-            /*
-            using (StreamReader reader = new StreamReader("ip.properties"))
-            {
-                string line;
-                line = reader.ReadLine();
-                
-                string[] lineValues = line.Split('=');
-                return lineValues[1];               
-            }
-            */
         }
     }
 }

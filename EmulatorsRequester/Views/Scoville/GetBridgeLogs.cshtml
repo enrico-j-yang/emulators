@@ -50,23 +50,13 @@
             <tr>
                 <td>Logs Count:</td>
                 <td>
-                    @Html.EditorFor(m => m.Count, 
-                        new Dictionary<string, object>
-                        {
-                            {"data-toggle", "tooltip"},
-                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.Count)}
-                        })
+                    @Html.EditorFor(m => m.Count, new { htmlAttributes = new { @min = "1", @max = "100000" } })
                 </td>
             </tr>            
             <tr>
                 <td>Logs Offset:</td>
                 <td>
-                    @Html.EditorFor(m => m.Offset, 
-                        new Dictionary<string, object>
-                        {
-                            {"data-toggle", "tooltip"},
-                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.Offset)}
-                        })
+                    @Html.EditorFor(m => m.Offset, new { htmlAttributes = new { @min = "0", @max = "100000" } })
                 </td>
             </tr>
             <tr>

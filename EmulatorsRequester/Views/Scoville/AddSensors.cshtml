@@ -60,7 +60,8 @@
                         new Dictionary<string, object>
                         {
                             {"data-toggle", "tooltip"},
-                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.BearToken)}
+                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.BearToken)},
+                            {"style", "width:350px;"}
                         })
                 </td>
             </tr>
@@ -71,30 +72,29 @@
                         new Dictionary<string, object>
                         {
                             {"data-toggle", "tooltip"},
-                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.BridgePrefix)}
+                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.BridgePrefix)},
+                            {"style", "width:350px;"}
                         })
                 </td>
             </tr>
             <tr>
                 <td>SensorPrefix:</td>
                 <td>
-                    @Html.TextBoxFor(m => m.SensorPrefix, 
+                    @Html.TextBoxFor(m => m.SensorPrefix,
                         new Dictionary<string, object>
                         {
                             {"data-toggle", "tooltip"},
-                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.SensorPrefix)}
+                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.SensorPrefix)},
+                            {"style", "width:350px;"},
+                            {"onblur", "querySensor(this)"}
                         })
+                    <div id="SensorPrefixTips"></div>
                 </td>
             </tr>
             <tr>
                 <td>SensorCount:</td>
                 <td>
-                    @Html.EditorFor(m => m.SensorCount, 
-                        new Dictionary<string, object>
-                        {
-                            {"data-toggle", "tooltip"},
-                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.SensorCount)}
-                        })
+                    @Html.EditorFor(m => m.SensorCount, new { htmlAttributes = new { @min = "1", @max = "10000" } })
                 </td>
             </tr>
             <tr>
@@ -104,7 +104,8 @@
                         new Dictionary<string, object>
                         {
                             {"data-toggle", "tooltip"},
-                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.MobilePrefix)}
+                            {"title", DisplayAttributeExtension.GetPropertyDescription(() => Model.MobilePrefix)},
+                            {"style", "width:350px;"}
                         })
                 </td>
             </tr>
@@ -139,3 +140,21 @@
     </table>  
 </body>
 </html>
+
+<script>
+async function querySensor(prefix) {
+    let result = new Promise(function(resolve) {
+        let req = new XMLHttpRequest();
+        req.open('GET', "api/sensor/" + prefix);
+        req.onload = function() {
+            if (req.status == 200){
+                resolve("Duplicated prefix");
+            } else {
+                resolve("Available prefix");
+            }
+        };
+        req.send();
+    })
+    document.getElementById("SensorPrefixTips").innerHTML = await result;
+}
+</script>

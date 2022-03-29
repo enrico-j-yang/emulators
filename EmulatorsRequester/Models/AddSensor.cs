@@ -17,7 +17,6 @@ namespace EmulatorsRequester.Models
         [Display(Name = "BridgePrefix", Description = "Unque string not more than 12 characters")]
         [RegularExpression(@"^[a-zA-Z0-9\s]*$")]
         [StringLength(12)]
-        [Required]
         public string BridgePrefix { get; set; }
         [Display(Name = "SensorPrefix", Description = "Unque hex(A-F0-9) string not more than 12 characters")]
         [RegularExpression(@"^[a-fA-F0-9\s]*$")]
@@ -31,7 +30,6 @@ namespace EmulatorsRequester.Models
         [Display(Name = "MobilePrefix", Description = "Unque string not more than 12 characters")]
         [RegularExpression(@"^[a-zA-Z0-9\s]*$")]
         [StringLength(12)]
-        [Required]
         public string MobilePrefix { get; set; }
         public string ResponseStatus { get; set; }
         public string JsonResponse { get; set; }
